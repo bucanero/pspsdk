@@ -903,6 +903,13 @@ int fchmodat(int fd, const char *path, mode_t mode, int flag)
 }
 #endif
 
+#ifdef F_ftruncate
+int ftruncate(int fd, off_t length)
+{
+	return truncate(__descriptormap[fd]->filename, mode);
+}
+#endif
+
 #ifdef F_pathconf
 long int pathconf(const char *path, int name) {
 	errno = ENOSYS;
